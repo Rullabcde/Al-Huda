@@ -10,3 +10,30 @@
     transform: translateX(-100%);
   }
 }
+
+@keyframes spin-once {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(180deg);
+  }
+}
+
+@keyframes bounce-slight {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-2px);
+  }
+}
+
+.animate-spin-once {
+  animation: spin-once 0.3s ease-in-out;
+}
+
+.animate-bounce-slight {
+  animation: bounce-slight 2s infinite;
+}

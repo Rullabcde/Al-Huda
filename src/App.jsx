@@ -1,5 +1,11 @@
 import React, { useState, useEffect } from "react";
-import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
+import {
+  BrowserRouter,
+  Routes,
+  Route,
+  Link,
+  useLocation,
+} from "react-router-dom";
 import {
   Menu,
   X,
@@ -10,6 +16,7 @@ import {
   ChevronLeft,
   Volume2,
 } from "lucide-react";
+import Preloader from "./Preloader";
 
 const Home = () => {
   const [prayerTimes, setPrayerTimes] = useState({
@@ -1051,108 +1058,147 @@ const KultumSchedule = () => {
 };
 const App = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    // Simulate loading time
+    const timer = setTimeout(() => {
+      setLoading(false);
+    }, 2000); // Show preloader for 2 seconds
+
+    return () => clearTimeout(timer);
+  }, []);
+
+  // Function to handle link clicks
+  const handleLinkClick = () => {
+    setIsOpen(false);
+  };
 
   return (
     <BrowserRouter>
-      {/* Marquee Text */}
-      <div className="py-1 overflow-hidden text-white bg-emerald-600 whitespace-nowrap">
-        <div className="inline-block animate-[marquee_20s_linear_infinite]">
-          Selamat datang di website Masjid AL-HUDA Tegalrejo No.Rt. 066,
-          Srigading, Kec. Sanden, Kabupaten Bantul, Daerah Istimewa Yogyakarta.
-          &nbsp;
-        </div>
-        <div className="inline-block animate-[marquee_20s_linear_infinite]">
-          Selamat datang di website Masjid AL-HUDA Tegalrejo No.Rt. 066,
-          Srigading, Kec. Sanden, Kabupaten Bantul, Daerah Istimewa Yogyakarta.
-          &nbsp;
-        </div>
-      </div>
-
-      {/* Navigation */}
-      <nav className="bg-white shadow-md">
-        <div className="px-4 mx-auto max-w-7xl">
-          <div className="flex items-center justify-between h-16">
-            <Link to="/" className="flex items-center">
-              <img
-                src="/logo.png"
-                alt="Logo Masjid"
-                className="rounded-full w-14 h-14"
-              />
-              <span className="font-bold text-emerald-800">AL-HUDA</span>
-            </Link>
-            <button
-              onClick={() => setIsOpen(!isOpen)}
-              className="p-2 text-gray-600 rounded-md hover:text-gray-900 hover:bg-gray-100">
-              {isOpen ? <X size={24} /> : <Menu size={24} />}
-            </button>
-          </div>
-        </div>
-
-        {/* Mobile Menu */}
-        {isOpen && (
-          <div className="md:hidden">
-            <div className="px-2 pt-2 pb-3 space-y-1">
-              <Link
-                to="/"
-                className="block px-3 py-2 text-base font-medium text-gray-700 rounded-md hover:text-gray-900 hover:bg-gray-50">
-                Beranda
-              </Link>
-              <Link
-                to="/tpa-schedule"
-                className="block px-3 py-2 text-base font-medium text-gray-700 rounded-md hover:text-gray-900 hover:bg-gray-50">
-                Jadwal TPA
-              </Link>
-              <Link
-                to="/quran"
-                className="block px-3 py-2 text-base font-medium text-gray-700 rounded-md hover:text-gray-900 hover:bg-gray-50">
-                Al-Qur'an Online
-              </Link>
-              <Link
-                to="/takjil"
-                className="block px-3 py-2 text-base font-medium text-gray-700 rounded-md hover:text-gray-900 hover:bg-gray-50">
-                Jadwal Takjil
-              </Link>
-              <Link
-                to="/kultum"
-                className="block px-3 py-2 text-base font-medium text-gray-700 rounded-md hover:text-gray-900 hover:bg-gray-50">
-                Jadwal Kultum
-              </Link>
+      {loading ? (
+        <Preloader />
+      ) : (
+        <>
+          {/* Marquee Text */}
+          <div className="fixed top-0 left-0 right-0 z-50">
+            <div className="py-1 overflow-hidden text-white bg-emerald-600 whitespace-nowrap">
+              <div className="inline-block animate-[marquee_20s_linear_infinite]">
+                Selamat datang di website Masjid AL-HUDA Tegalrejo No.Rt. 066,
+                Srigading, Kec. Sanden, Kabupaten Bantul, Daerah Istimewa
+                Yogyakarta. &nbsp;
+              </div>
+              <div className="inline-block animate-[marquee_20s_linear_infinite]">
+                Selamat datang di website Masjid AL-HUDA Tegalrejo No.Rt. 066,
+                Srigading, Kec. Sanden, Kabupaten Bantul, Daerah Istimewa
+                Yogyakarta. &nbsp;
+              </div>
             </div>
-          </div>
-        )}
-      </nav>
 
-      {/* Routes */}
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/tpa-schedule" element={<TPASchedule />} />
-        <Route path="/quran" element={<QuranOnline />} />
-        <Route path="/takjil" element={<TakjilSchedule />} />
-        <Route path="/kultum" element={<KultumSchedule />} />
-      </Routes>
+            {/* Navigation */}
+            <nav className="relative bg-white shadow-md">
+              <div className="px-4 mx-auto max-w-7xl">
+                <div className="flex items-center justify-between h-16">
+                  <Link to="/" className="flex items-center">
+                    <img
+                      src="/logo.png"
+                      alt="Logo Masjid"
+                      className="rounded-full w-14 h-14"
+                    />
+                    <span className="font-bold text-emerald-800">AL-HUDA</span>
+                  </Link>
+                  <button
+                    onClick={() => setIsOpen(!isOpen)}
+                    className="relative z-50 p-2 text-gray-600 transition-colors rounded-md hover:text-gray-900 hover:bg-gray-100">
+                    {isOpen ? (
+                      <X size={24} className="animate-spin-once" />
+                    ) : (
+                      <Menu size={24} className="animate-bounce-slight" />
+                    )}
+                  </button>
+                </div>
+              </div>
 
-      {/* Footer */}
-      <footer className="mt-8 text-white bg-emerald-800">
-        <div className="px-4 py-8 mx-auto max-w-7xl">
-          <div className="mb-6 text-center">
-            <h2 className="mb-2 text-2xl font-bold">Masjid AL-HUDA</h2>
-            <p className="text-sm text-emerald-200">
-              Memakmurkan Masjid, Membangun Umat
-            </p>
+              {/* Fullscreen Mobile Menu */}
+              <div
+                className={`fixed top-0 right-0 h-screen w-full md:w-80 bg-white shadow-lg transform transition-transform duration-300 ease-in-out ${
+                  isOpen ? "translate-x-0" : "translate-x-full"
+                }`}
+                style={{ paddingTop: "104px" }}>
+                <div className="px-6 pt-6 pb-8 space-y-4">
+                  <Link
+                    to="/"
+                    onClick={handleLinkClick}
+                    className="block py-3 text-lg font-medium text-gray-700 transition-all duration-300 border-b border-gray-100 hover:text-emerald-600 hover:pl-4">
+                    Beranda
+                  </Link>
+                  <Link
+                    to="/tpa-schedule"
+                    onClick={handleLinkClick}
+                    className="block py-3 text-lg font-medium text-gray-700 transition-all duration-300 border-b border-gray-100 hover:text-emerald-600 hover:pl-4">
+                    Jadwal TPA
+                  </Link>
+                  <Link
+                    to="/takjil"
+                    onClick={handleLinkClick}
+                    className="block py-3 text-lg font-medium text-gray-700 transition-all duration-300 border-b border-gray-100 hover:text-emerald-600 hover:pl-4">
+                    Jadwal Takjil
+                  </Link>
+                  <Link
+                    to="/kultum"
+                    onClick={handleLinkClick}
+                    className="block py-3 text-lg font-medium text-gray-700 transition-all duration-300 border-b border-gray-100 hover:text-emerald-600 hover:pl-4">
+                    Jadwal Kultum
+                  </Link>
+                  <Link
+                    to="/quran"
+                    onClick={handleLinkClick}
+                    className="block py-3 text-lg font-medium text-gray-700 transition-all duration-300 border-b border-gray-100 hover:text-emerald-600 hover:pl-4">
+                    Al-Qur'an Online
+                  </Link>
+                </div>
+              </div>
+
+              {/* Overlay when menu is open */}
+              {isOpen && <div onClick={() => setIsOpen(false)} />}
+            </nav>
           </div>
-          <div className="pt-6 mt-6 border-t border-emerald-700">
-            <div className="flex flex-col items-center space-y-4">
-              <p className="text-sm text-center text-emerald-300">
-                Tegalrejo No.Rt. 066, Srigading, Kec. Sanden, Kabupaten Bantul,
-                Daerah Istimewa Yogyakarta
-              </p>
+
+          {/* Main Content */}
+          <div className="pt-[104px]">
+            <Routes>
+              <Route path="/" element={<Home />} />
+              <Route path="/tpa-schedule" element={<TPASchedule />} />
+              <Route path="/quran" element={<QuranOnline />} />
+              <Route path="/takjil" element={<TakjilSchedule />} />
+              <Route path="/kultum" element={<KultumSchedule />} />
+            </Routes>
+          </div>
+
+          {/* Footer */}
+          <footer className="mt-8 text-white bg-emerald-800">
+            <div className="px-4 py-8 mx-auto max-w-7xl">
+              <div className="mb-6 text-center">
+                <h2 className="mb-2 text-2xl font-bold">Masjid AL-HUDA</h2>
+                <p className="text-sm text-emerald-200">
+                  Memakmurkan Masjid, Membangun Umat
+                </p>
+              </div>
+              <div className="pt-6 mt-6 border-t border-emerald-700">
+                <div className="flex flex-col items-center space-y-4">
+                  <p className="text-sm text-center text-emerald-300">
+                    Tegalrejo No.Rt. 066, Srigading, Kec. Sanden, Kabupaten
+                    Bantul, Daerah Istimewa Yogyakarta
+                  </p>
+                </div>
+              </div>
+              <div className="mt-6 text-sm text-center text-emerald-400">
+                © 2025 Masjid AL-HUDA. All rights reserved.
+              </div>
             </div>
-          </div>
-          <div className="mt-6 text-sm text-center text-emerald-400">
-            © 2025 Masjid AL-HUDA. All rights reserved.
-          </div>
-        </div>
-      </footer>
+          </footer>
+        </>
+      )}
     </BrowserRouter>
   );
 };
