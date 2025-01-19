@@ -14,7 +14,9 @@ import {
   Users,
   Search,
   ChevronLeft,
+  ChevronRight,
   Volume2,
+  Images,
 } from "lucide-react";
 import Preloader from "./Preloader";
 
@@ -108,6 +110,13 @@ const Home = () => {
             <div className="p-6 text-center transition duration-300 bg-white rounded-lg shadow-md hover:shadow-lg">
               <Calendar className="mx-auto mb-3 text-emerald-600" size={32} />
               <h3 className="mb-2 text-lg font-semibold">Al - Quran</h3>
+            </div>
+          </Link>
+
+          <Link to="/gallery" className="block">
+            <div className="p-6 text-center transition duration-300 bg-white rounded-lg shadow-md hover:shadow-lg">
+              <Images className="mx-auto mb-3 text-emerald-600" size={32} />
+              <h3 className="mb-2 text-lg font-semibold">Gallery</h3>
             </div>
           </Link>
         </div>
@@ -210,162 +219,6 @@ const TPASchedule = () => {
             </div>
           </div>
         </div>
-      )}
-    </div>
-  );
-};
-
-const QuranOnline = () => {
-  const [surahs, setSurahs] = useState([]);
-  const [selectedSurah, setSelectedSurah] = useState(null);
-  const [verses, setVerses] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [searchQuery, setSearchQuery] = useState("");
-
-  useEffect(() => {
-    const fetchSurahs = async () => {
-      try {
-        const response = await fetch("https://api.quran.gading.dev/surah");
-        const data = await response.json();
-        setSurahs(data.data);
-        setLoading(false);
-      } catch (error) {
-        console.error("Error fetching surahs:", error);
-        setLoading(false);
-      }
-    };
-
-    fetchSurahs();
-  }, []);
-
-  const fetchSurahVerses = async (surahNumber) => {
-    setLoading(true);
-    try {
-      const response = await fetch(
-        `https://api.quran.gading.dev/surah/${surahNumber}`
-      );
-      const data = await response.json();
-      setVerses(data.data.verses);
-      setSelectedSurah(data.data);
-    } catch (error) {
-      console.error("Error fetching verses:", error);
-    }
-    setLoading(false);
-  };
-
-  const filteredSurahs = surahs.filter(
-    (surah) =>
-      surah.name.transliteration.id
-        .toLowerCase()
-        .includes(searchQuery.toLowerCase()) ||
-      surah.name.translation.id
-        .toLowerCase()
-        .includes(searchQuery.toLowerCase()) ||
-      surah.number.toString().includes(searchQuery)
-  );
-
-  const LoadingSpinner = () => (
-    <div className="flex items-center justify-center p-4">
-      <div className="w-8 h-8 border-4 rounded-full border-emerald-200 border-t-emerald-600 animate-spin"></div>
-    </div>
-  );
-
-  return (
-    <div className="min-h-screen p-4 bg-gray-50">
-      <h1 className="mb-6 text-2xl font-bold text-center text-emerald-800">
-        Al-Qur'an Online
-      </h1>
-
-      {loading ? (
-        <LoadingSpinner />
-      ) : selectedSurah ? (
-        <div className="max-w-3xl mx-auto">
-          <button
-            onClick={() => setSelectedSurah(null)}
-            className="flex items-center px-4 py-2 mb-4 text-white rounded bg-emerald-600 hover:bg-emerald-700">
-            <ChevronLeft className="w-4 h-4 mr-2" />
-            Kembali ke Daftar Surah
-          </button>
-
-          <div className="mb-6 text-center">
-            <h2 className="text-2xl font-bold text-emerald-800">
-              {selectedSurah.name.transliteration.id}
-            </h2>
-            <p className="text-gray-600">{selectedSurah.name.translation.id}</p>
-            <p className="mt-2 text-sm text-gray-500">
-              {selectedSurah.numberOfVerses} Ayat |{" "}
-              {selectedSurah.revelation.id}
-            </p>
-          </div>
-
-          <div className="space-y-6">
-            {verses.map((verse) => (
-              <div
-                key={verse.number.inSurah}
-                className="p-6 transition-shadow bg-white rounded-lg shadow-md hover:shadow-lg">
-                <div className="flex items-center justify-between pb-2 mb-4 border-b">
-                  <span className="flex items-center justify-center w-8 h-8 font-medium rounded-full bg-emerald-100 text-emerald-800">
-                    {verse.number.inSurah}
-                  </span>
-                  <button className="p-2 transition-colors rounded-full hover:bg-gray-100">
-                    <Volume2 className="w-5 h-5 text-emerald-600" />
-                  </button>
-                </div>
-
-                <p className="mb-4 text-2xl leading-loose text-right font-arabic">
-                  {verse.text.arab}
-                </p>
-
-                <p className="mb-3 italic text-gray-700">
-                  {verse.text.transliteration.en}
-                </p>
-
-                <p className="text-gray-600">{verse.translation.id}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-      ) : (
-        <>
-          <div className="max-w-xl mx-auto mb-6">
-            <div className="relative">
-              <Search className="absolute w-5 h-5 text-gray-400 transform -translate-y-1/2 left-3 top-1/2" />
-              <input
-                type="text"
-                placeholder="Cari surah..."
-                value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
-                className="w-full py-2 pl-10 pr-4 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-transparent"
-              />
-            </div>
-          </div>
-
-          <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
-            {filteredSurahs.map((surah) => (
-              <button
-                key={surah.number}
-                onClick={() => fetchSurahVerses(surah.number)}
-                className="p-4 text-left transition-all bg-white rounded-lg shadow hover:shadow-lg hover:bg-emerald-50">
-                <div className="flex items-center justify-between mb-2">
-                  <span className="flex items-center">
-                    <span className="flex items-center justify-center w-8 h-8 mr-2 font-medium rounded-full bg-emerald-100 text-emerald-800">
-                      {surah.number}
-                    </span>
-                    <span className="font-bold text-emerald-800">
-                      {surah.name.transliteration.id}
-                    </span>
-                  </span>
-                  <span className="text-sm text-gray-600">
-                    {surah.numberOfVerses} ayat
-                  </span>
-                </div>
-                <p className="text-sm text-gray-600">
-                  {surah.name.translation.id}
-                </p>
-              </button>
-            ))}
-          </div>
-        </>
       )}
     </div>
   );
@@ -1056,6 +909,276 @@ const KultumSchedule = () => {
     </div>
   );
 };
+
+const QuranOnline = () => {
+  const [surahs, setSurahs] = useState([]);
+  const [selectedSurah, setSelectedSurah] = useState(null);
+  const [verses, setVerses] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [searchQuery, setSearchQuery] = useState("");
+
+  useEffect(() => {
+    const fetchSurahs = async () => {
+      try {
+        const response = await fetch("https://api.quran.gading.dev/surah");
+        const data = await response.json();
+        setSurahs(data.data);
+        setLoading(false);
+      } catch (error) {
+        console.error("Error fetching surahs:", error);
+        setLoading(false);
+      }
+    };
+
+    fetchSurahs();
+  }, []);
+
+  const fetchSurahVerses = async (surahNumber) => {
+    setLoading(true);
+    try {
+      const response = await fetch(
+        `https://api.quran.gading.dev/surah/${surahNumber}`
+      );
+      const data = await response.json();
+      setVerses(data.data.verses);
+      setSelectedSurah(data.data);
+    } catch (error) {
+      console.error("Error fetching verses:", error);
+    }
+    setLoading(false);
+  };
+
+  const filteredSurahs = surahs.filter(
+    (surah) =>
+      surah.name.transliteration.id
+        .toLowerCase()
+        .includes(searchQuery.toLowerCase()) ||
+      surah.name.translation.id
+        .toLowerCase()
+        .includes(searchQuery.toLowerCase()) ||
+      surah.number.toString().includes(searchQuery)
+  );
+
+  const LoadingSpinner = () => (
+    <div className="flex items-center justify-center p-4">
+      <div className="w-8 h-8 border-4 rounded-full border-emerald-200 border-t-emerald-600 animate-spin"></div>
+    </div>
+  );
+
+  return (
+    <div className="min-h-screen p-4 bg-gray-50">
+      <h1 className="mb-6 text-2xl font-bold text-center text-emerald-800">
+        Al-Qur'an Online
+      </h1>
+
+      {loading ? (
+        <LoadingSpinner />
+      ) : selectedSurah ? (
+        <div className="max-w-3xl mx-auto">
+          <button
+            onClick={() => setSelectedSurah(null)}
+            className="flex items-center px-4 py-2 mb-4 text-white rounded bg-emerald-600 hover:bg-emerald-700">
+            <ChevronLeft className="w-4 h-4 mr-2" />
+            Kembali ke Daftar Surah
+          </button>
+
+          <div className="mb-6 text-center">
+            <h2 className="text-2xl font-bold text-emerald-800">
+              {selectedSurah.name.transliteration.id}
+            </h2>
+            <p className="text-gray-600">{selectedSurah.name.translation.id}</p>
+            <p className="mt-2 text-sm text-gray-500">
+              {selectedSurah.numberOfVerses} Ayat |{" "}
+              {selectedSurah.revelation.id}
+            </p>
+          </div>
+
+          <div className="space-y-6">
+            {verses.map((verse) => (
+              <div
+                key={verse.number.inSurah}
+                className="p-6 transition-shadow bg-white rounded-lg shadow-md hover:shadow-lg">
+                <div className="flex items-center justify-between pb-2 mb-4 border-b">
+                  <span className="flex items-center justify-center w-8 h-8 font-medium rounded-full bg-emerald-100 text-emerald-800">
+                    {verse.number.inSurah}
+                  </span>
+                  <button className="p-2 transition-colors rounded-full hover:bg-gray-100">
+                    <Volume2 className="w-5 h-5 text-emerald-600" />
+                  </button>
+                </div>
+
+                <p className="mb-4 text-2xl leading-loose text-right font-arabic">
+                  {verse.text.arab}
+                </p>
+
+                <p className="mb-3 italic text-gray-700">
+                  {verse.text.transliteration.en}
+                </p>
+
+                <p className="text-gray-600">{verse.translation.id}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      ) : (
+        <>
+          <div className="max-w-xl mx-auto mb-6">
+            <div className="relative">
+              <Search className="absolute w-5 h-5 text-gray-400 transform -translate-y-1/2 left-3 top-1/2" />
+              <input
+                type="text"
+                placeholder="Cari surah..."
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                className="w-full py-2 pl-10 pr-4 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-transparent"
+              />
+            </div>
+          </div>
+
+          <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
+            {filteredSurahs.map((surah) => (
+              <button
+                key={surah.number}
+                onClick={() => fetchSurahVerses(surah.number)}
+                className="p-4 text-left transition-all bg-white rounded-lg shadow hover:shadow-lg hover:bg-emerald-50">
+                <div className="flex items-center justify-between mb-2">
+                  <span className="flex items-center">
+                    <span className="flex items-center justify-center w-8 h-8 mr-2 font-medium rounded-full bg-emerald-100 text-emerald-800">
+                      {surah.number}
+                    </span>
+                    <span className="font-bold text-emerald-800">
+                      {surah.name.transliteration.id}
+                    </span>
+                  </span>
+                  <span className="text-sm text-gray-600">
+                    {surah.numberOfVerses} ayat
+                  </span>
+                </div>
+                <p className="text-sm text-gray-600">
+                  {surah.name.translation.id}
+                </p>
+              </button>
+            ))}
+          </div>
+        </>
+      )}
+    </div>
+  );
+};
+
+const Gallery = () => {
+  const [currentPage, setCurrentPage] = useState(1);
+  const imagesPerPage = 5;
+
+  const images = [
+    {
+      src: "/pict1.jpg",
+      alt: "Foto 1",
+      caption: "Pengajian Akbar Ramadhan",
+    },
+    {
+      src: "/pict2.jpg",
+      alt: "Foto 2",
+      caption: "Buka Puasa Bersama",
+    },
+    {
+      src: "/pict3.jpg",
+      alt: "Foto 3",
+      caption: "Kegiatan Mengaji Anak-anak TPA",
+    },
+  ];
+
+  const totalPages = Math.ceil(images.length / imagesPerPage);
+
+  // Get current page's images
+  const indexOfLastImage = currentPage * imagesPerPage;
+  const indexOfFirstImage = indexOfLastImage - imagesPerPage;
+  const currentImages = images.slice(indexOfFirstImage, indexOfLastImage);
+
+  const nextPage = () => {
+    setCurrentPage((prev) => Math.min(prev + 1, totalPages));
+  };
+
+  const prevPage = () => {
+    setCurrentPage((prev) => Math.max(prev - 1, 1));
+  };
+
+  return (
+    <div className="min-h-screen p-4 bg-gray-50">
+      <h1 className="mb-6 text-2xl font-bold text-center text-emerald-800">
+        Galeri Masjid
+      </h1>
+
+      {/* Grid Gallery */}
+      <div className="max-w-6xl mx-auto">
+        <div className="grid gap-4 mb-6">
+          {currentImages.map((image, index) => (
+            <div
+              key={index}
+              className="relative overflow-hidden transition-transform bg-white rounded-lg shadow-md hover:shadow-lg hover:scale-[1.02]">
+              <div className="aspect-[4/3]">
+                <img
+                  src={image.src}
+                  alt={image.alt}
+                  className="object-cover w-full h-full"
+                />
+              </div>
+              <div className="absolute bottom-0 left-0 right-0 p-2 text-white bg-gradient-to-t from-black/60 to-transparent">
+                <p className="text-sm text-center">{image.caption}</p>
+              </div>
+            </div>
+          ))}
+        </div>
+        <div>
+          <h1 className="text-xl font-bold text-center bg-green-400">
+            mw takeaway or take a chance with me??
+          </h1>
+        </div>
+
+        {/* Pagination */}
+        <div className="flex items-center justify-center gap-4 mt-8">
+          <button
+            onClick={prevPage}
+            disabled={currentPage === 1}
+            className={`p-2 rounded-lg ${
+              currentPage === 1
+                ? "bg-gray-100 text-gray-400"
+                : "bg-emerald-600 text-white hover:bg-emerald-700"
+            }`}>
+            <ChevronLeft className="w-5 h-5" />
+          </button>
+
+          <div className="flex items-center gap-2">
+            {[...Array(totalPages)].map((_, index) => (
+              <button
+                key={index}
+                onClick={() => setCurrentPage(index + 1)}
+                className={`w-8 h-8 rounded-lg transition-colors ${
+                  currentPage === index + 1
+                    ? "bg-emerald-600 text-white"
+                    : "bg-white text-emerald-600 hover:bg-emerald-50"
+                }`}>
+                {index + 1}
+              </button>
+            ))}
+          </div>
+
+          <button
+            onClick={nextPage}
+            disabled={currentPage === totalPages}
+            className={`p-2 rounded-lg ${
+              currentPage === totalPages
+                ? "bg-gray-100 text-gray-400"
+                : "bg-emerald-600 text-white hover:bg-emerald-700"
+            }`}>
+            <ChevronRight className="w-5 h-5" />
+          </button>
+        </div>
+      </div>
+    </div>
+  );
+};
+
 const App = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [loading, setLoading] = useState(true);
@@ -1156,6 +1279,12 @@ const App = () => {
                     className="block py-3 text-lg font-medium text-gray-700 transition-all duration-300 border-b border-gray-100 hover:text-emerald-600 hover:pl-4">
                     Al-Qur'an Online
                   </Link>
+                  <Link
+                    to="/gallery"
+                    onClick={handleLinkClick}
+                    className="block py-3 text-lg font-medium text-gray-700 transition-all duration-300 border-b border-gray-100 hover:text-emerald-600 hover:pl-4">
+                    Gallery
+                  </Link>
                 </div>
               </div>
 
@@ -1169,9 +1298,10 @@ const App = () => {
             <Routes>
               <Route path="/" element={<Home />} />
               <Route path="/tpa-schedule" element={<TPASchedule />} />
-              <Route path="/quran" element={<QuranOnline />} />
               <Route path="/takjil" element={<TakjilSchedule />} />
               <Route path="/kultum" element={<KultumSchedule />} />
+              <Route path="/quran" element={<QuranOnline />} />
+              <Route path="/gallery" element={<Gallery />} />
             </Routes>
           </div>
 
