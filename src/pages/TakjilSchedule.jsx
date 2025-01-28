@@ -71,7 +71,7 @@ const TakjilSchedule = () => {
                 </li>
                 <li className="flex items-center gap-2">
                   <Users className="w-4 h-4" />
-                  Perkiraan porsi 100 orang
+                  Perkiraan porsi 200 orang
                 </li>
                 <li className="flex items-center gap-2">
                   <Calendar className="w-4 h-4" />
