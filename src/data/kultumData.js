@@ -21,7 +21,7 @@ export const subuhSchedule = [
     date: "4 Ramadan",
     day: "4 Maret 2025",
     speaker: "dr. H. Sriwijaya",
-    topic: "Kesabaran sebagai Kunci Ibadah",
+    topic: "Menjaga Kesehatan Saat Bulan Ramadhan",
   },
   {
     date: "5 Ramadan",

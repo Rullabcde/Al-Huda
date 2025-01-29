@@ -67,7 +67,7 @@ const TakjilSchedule = () => {
               <ul className="space-y-2 text-sm text-emerald-800">
                 <li className="flex items-center gap-2">
                   <Clock className="w-4 h-4" />
-                  Takjil disediakan mulai pukul 17:00
+                  Takjil disediakan mulai pukul 16:30
                 </li>
                 <li className="flex items-center gap-2">
                   <Users className="w-4 h-4" />

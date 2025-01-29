@@ -7,74 +7,127 @@ const Home = () => {
   const prayerTimes = usePrayerTimes();
 
   return (
-    <div className="min-h-screen bg-gray-50">
-      {/* Prayer Times */}
+    <div className="bg-gray-50">
+      {/* Prayer Times with sliding animation */}
       <div className="py-4 text-white bg-emerald-700">
         <div className="px-4 mx-auto max-w-7xl">
           <div className="grid grid-cols-5 gap-4 text-center">
-            <div className="space-y-1">
-              <p className="text-xs">Subuh</p>
-              <p className="font-bold">{prayerTimes.fajr}</p>
-            </div>
-            <div className="space-y-1">
-              <p className="text-xs">Dzuhur</p>
-              <p className="font-bold">{prayerTimes.dhuhr}</p>
-            </div>
-            <div className="space-y-1">
-              <p className="text-xs">Ashar</p>
-              <p className="font-bold">{prayerTimes.asr}</p>
-            </div>
-            <div className="space-y-1">
-              <p className="text-xs">Maghrib</p>
-              <p className="font-bold">{prayerTimes.maghrib}</p>
-            </div>
-            <div className="space-y-1">
-              <p className="text-xs">Isya</p>
-              <p className="font-bold">{prayerTimes.isha}</p>
-            </div>
+            {[
+              { name: "Subuh", time: prayerTimes.fajr },
+              { name: "Dzuhur", time: prayerTimes.dhuhr },
+              { name: "Ashar", time: prayerTimes.asr },
+              { name: "Maghrib", time: prayerTimes.maghrib },
+              { name: "Isya", time: prayerTimes.isha },
+            ].map((prayer, index) => (
+              <div
+                key={prayer.name}
+                className="space-y-1 transition-all duration-300 transform cursor-pointer hover:animate-bounce hover:scale-110"
+                style={{
+                  animation: `slideIn 0.5s ease-out ${index * 0.1}s backwards`,
+                }}>
+                <p className="text-xs">{prayer.name}</p>
+                <p className="font-bold animate-pulse">{prayer.time}</p>
+              </div>
+            ))}
           </div>
         </div>
       </div>
 
       {/* Main Content - Cards */}
-      <div className="px-4 py-8 mx-auto max-w-7xl">
-        <div className="grid grid-cols-1 gap-4">
-          <Link to="/tpa-schedule" className="block">
-            <div className="p-6 text-center transition duration-300 bg-white rounded-lg shadow-md hover:shadow-lg">
-              <Book className="mx-auto mb-3 text-emerald-600" size={32} />
-              <h3 className="mb-2 text-lg font-semibold">Jadwal TPA</h3>
-            </div>
-          </Link>
+      <div className="flex items-center flex-1 px-4 py-12 mx-auto max-w-7xl min-h-[calc(100vh-320px)]">
+        <div className="w-full max-w-5xl mx-auto">
+          {/* Top Row - 3 Cards */}
+          <div className="grid grid-cols-1 gap-6 mb-8 md:grid-cols-3 md:gap-8">
+            {[
+              { to: "/tpa-schedule", Icon: Book, title: "Jadwal TPA" },
+              { to: "/takjil", Icon: Users, title: "Jadwal Takjil" },
+              { to: "/kultum", Icon: Users, title: "Jadwal Kultum" },
+            ].map((card, index) => (
+              <Link
+                key={card.title}
+                to={card.to}
+                className="block group transform-gpu"
+                style={{
+                  animation: `fadeSlideUp 0.6s ease-out ${
+                    index * 0.2
+                  }s backwards`,
+                }}>
+                <div className="relative h-full p-6 overflow-hidden text-center transition-all duration-500 bg-white rounded-lg shadow-md md:p-8 hover:shadow-2xl hover:bg-emerald-50 group-hover:-translate-y-2">
+                  {/* Animated border effect */}
+                  <div className="absolute inset-0 opacity-0 group-hover:opacity-100">
+                    <div className="absolute top-0 left-0 w-full h-1 transition-transform duration-500 origin-left transform scale-x-0 bg-gradient-to-r from-emerald-400 to-emerald-600 group-hover:scale-x-100" />
+                    <div className="absolute top-0 right-0 w-1 h-full transition-transform duration-500 origin-top transform scale-y-0 bg-gradient-to-b from-emerald-600 to-emerald-400 group-hover:scale-y-100" />
+                    <div className="absolute bottom-0 right-0 w-full h-1 transition-transform duration-500 origin-right transform scale-x-0 bg-gradient-to-l from-emerald-400 to-emerald-600 group-hover:scale-x-100" />
+                    <div className="absolute top-0 left-0 w-1 h-full transition-transform duration-500 origin-bottom transform scale-y-0 bg-gradient-to-t from-emerald-600 to-emerald-400 group-hover:scale-y-100" />
+                  </div>
 
-          <Link to="/takjil" className="block">
-            <div className="p-6 text-center transition duration-300 bg-white rounded-lg shadow-md hover:shadow-lg">
-              <Users className="mx-auto mb-3 text-emerald-600" size={32} />
-              <h3 className="mb-2 text-lg font-semibold">Jadwal Takjil</h3>
-            </div>
-          </Link>
+                  <card.Icon className="w-12 h-12 mx-auto mb-4 transition-all duration-500 text-emerald-600 md:w-16 md:h-16 md:mb-6 group-hover:scale-125 group-hover:rotate-12" />
+                  <h3 className="relative z-10 text-lg font-semibold transition-colors duration-300 md:text-xl group-hover:text-emerald-700">
+                    {card.title}
+                  </h3>
+                </div>
+              </Link>
+            ))}
+          </div>
 
-          <Link to="/kultum" className="block">
-            <div className="p-6 text-center transition duration-300 bg-white rounded-lg shadow-md hover:shadow-lg">
-              <Users className="mx-auto mb-3 text-emerald-600" size={32} />
-              <h3 className="mb-2 text-lg font-semibold">Jadwal Kultum</h3>
-            </div>
-          </Link>
+          {/* Bottom Row - 2 Cards */}
+          <div className="grid grid-cols-1 gap-6 md:grid-cols-2 md:gap-8 md:px-24">
+            {[
+              { to: "/quran", Icon: Calendar, title: "Al - Quran" },
+              { to: "/gallery", Icon: Images, title: "Gallery" },
+            ].map((card, index) => (
+              <Link
+                key={card.title}
+                to={card.to}
+                className="block group transform-gpu"
+                style={{
+                  animation: `fadeSlideUp 0.6s ease-out ${
+                    (index + 3) * 0.2
+                  }s backwards`,
+                }}>
+                <div className="relative h-full p-6 overflow-hidden text-center transition-all duration-500 bg-white rounded-lg shadow-md md:p-8 hover:shadow-2xl hover:bg-emerald-50 group-hover:-translate-y-2">
+                  {/* Animated border effect */}
+                  <div className="absolute inset-0 opacity-0 group-hover:opacity-100">
+                    <div className="absolute top-0 left-0 w-full h-1 transition-transform duration-500 origin-left transform scale-x-0 bg-gradient-to-r from-emerald-400 to-emerald-600 group-hover:scale-x-100" />
+                    <div className="absolute top-0 right-0 w-1 h-full transition-transform duration-500 origin-top transform scale-y-0 bg-gradient-to-b from-emerald-600 to-emerald-400 group-hover:scale-y-100" />
+                    <div className="absolute bottom-0 right-0 w-full h-1 transition-transform duration-500 origin-right transform scale-x-0 bg-gradient-to-l from-emerald-400 to-emerald-600 group-hover:scale-x-100" />
+                    <div className="absolute top-0 left-0 w-1 h-full transition-transform duration-500 origin-bottom transform scale-y-0 bg-gradient-to-t from-emerald-600 to-emerald-400 group-hover:scale-y-100" />
+                  </div>
 
-          <Link to="/quran" className="block">
-            <div className="p-6 text-center transition duration-300 bg-white rounded-lg shadow-md hover:shadow-lg">
-              <Calendar className="mx-auto mb-3 text-emerald-600" size={32} />
-              <h3 className="mb-2 text-lg font-semibold">Al - Quran</h3>
-            </div>
-          </Link>
-
-          <Link to="/gallery" className="block">
-            <div className="p-6 text-center transition duration-300 bg-white rounded-lg shadow-md hover:shadow-lg">
-              <Images className="mx-auto mb-3 text-emerald-600" size={32} />
-              <h3 className="mb-2 text-lg font-semibold">Gallery</h3>
-            </div>
-          </Link>
+                  <card.Icon className="w-12 h-12 mx-auto mb-4 transition-all duration-500 text-emerald-600 md:w-16 md:h-16 md:mb-6 group-hover:scale-125 group-hover:rotate-12" />
+                  <h3 className="relative z-10 text-lg font-semibold transition-colors duration-300 md:text-xl group-hover:text-emerald-700">
+                    {card.title}
+                  </h3>
+                </div>
+              </Link>
+            ))}
+          </div>
         </div>
       </div>
+
+      <style jsx>{`
+        @keyframes slideIn {
+          from {
+            opacity: 0;
+            transform: translateX(-2rem);
+          }
+          to {
+            opacity: 1;
+            transform: translateX(0);
+          }
+        }
+
+        @keyframes fadeSlideUp {
+          from {
+            opacity: 0;
+            transform: translateY(2rem);
+          }
+          to {
+            opacity: 1;
+            transform: translateY(0);
+          }
+        }
+      `}</style>
     </div>
   );
 };
