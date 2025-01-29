@@ -394,4 +394,18 @@ export const ramadanSchedule = [
       "Rahmat",
     ],
   },
+  {
+    date: "Khataman",
+    menu: "30 Maret 2025",
+    members: [
+      "Tri Marsudi",
+      "Tri Dwi Manunggal",
+      "Tohari",
+      "Jumakir",
+      "Paryanti",
+      "Jumanah",
+      "Tumijah",
+      "Mahendri",
+    ],
+  },
 ];
