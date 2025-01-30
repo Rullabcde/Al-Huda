@@ -1,13 +1,26 @@
-import { useState } from "react";
-import { subuhSchedule, isyaSchedule } from "../data/kultumData";
+import { useState, useMemo } from "react";
+import {
+  subuhSchedule,
+  isyaSchedule,
+  bukabersamaSchedule,
+} from "../data/kultumData";
 
 export const useKultumSchedule = () => {
   const [activeSchedule, setActiveSchedule] = useState("subuh");
   const [selectedSchedule, setSelectedSchedule] = useState(null);
 
-  const currentSchedule =
-    activeSchedule === "subuh" ? subuhSchedule : isyaSchedule;
-  const scheduleTime = activeSchedule === "subuh" ? "04:30" : "19:30";
+  const currentSchedule = useMemo(() => {
+    switch (activeSchedule) {
+      case "subuh":
+        return subuhSchedule;
+      case "isya":
+        return isyaSchedule;
+      case "bukabersama":
+        return bukabersamaSchedule;
+      default:
+        return subuhSchedule;
+    }
+  }, [activeSchedule]);
 
   return {
     activeSchedule,
@@ -15,6 +28,5 @@ export const useKultumSchedule = () => {
     selectedSchedule,
     setSelectedSchedule,
     currentSchedule,
-    scheduleTime,
   };
 };
