@@ -38,6 +38,7 @@ export const ramadanSchedule = [
       "JUMAR",
       "HERU",
       "WAJI",
+      "TRI WAHYUDI",
     ],
   },
   {
@@ -317,6 +318,20 @@ export const ramadanSchedule = [
     date: "23 Ramadan",
     menu: "23 Maret 2025",
     members: [
+      "SUNARTO",
+      "ROHADI",
+      "RITMA",
+      "RAHMAT",
+      "YANTO",
+      "SUKIRMAN",
+      "SUTADIYANTO",
+      "SUDARSIH",
+    ],
+  },
+  {
+    date: "24 Ramadan",
+    menu: "24 Maret 2025",
+    members: [
       "SUHARNI",
       "PARJONO",
       "BAYU",
@@ -326,20 +341,6 @@ export const ramadanSchedule = [
       "SUPANDRIYANTO",
       "SURONO",
       "SITI ROHAYATI",
-    ],
-  },
-  {
-    date: "24 Ramadan",
-    menu: "24 Maret 2025",
-    members: [
-      "SUNARTO",
-      "ROHADI",
-      "RITMA",
-      "RAHMAT",
-      "YANTO",
-      "SUKIRMAN",
-      "SUTADIYANTO",
-      "SUDARSIH",
     ],
   },
   {
