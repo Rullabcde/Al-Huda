@@ -324,6 +324,7 @@ export const ramadanSchedule = [
       "ZANUAR",
       "BANDI",
       "SUPANDRIYANTO",
+      "SURONO",
       "SITI ROHAYATI",
     ],
   },
