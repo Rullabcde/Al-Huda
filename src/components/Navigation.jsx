@@ -52,6 +52,9 @@ const Navigation = () => {
           <NavLink to="/kultum" onClick={handleLinkClick}>
             Jadwal Kultum
           </NavLink>
+          <NavLink to="/infaq" onClick={handleLinkClick}>
+            Infaq Ramadhan
+          </NavLink>
           <NavLink to="/quran" onClick={handleLinkClick}>
             Al-Qur'an Online
           </NavLink>

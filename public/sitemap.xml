@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <!-- Halaman Utama -->
+  <url>
+    <loc>https://www.masjidalhuda.vercel.app/</loc>
+    <lastmod>2025-01-30</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>1.0</priority>
+  </url>
+
+  <!-- Halaman Jadwal Kajian -->
+  <url>
+    <loc>https://www.masjidalhuda.vercel.app/jadwal-kajian</loc>
+    <lastmod>2025-01-30</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <!-- Halaman TPA -->
+  <url>
+    <loc>https://www.masjidalhuda.vercel.app/tpa</loc>
+    <lastmod>2025-01-30</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <!-- Halaman Penceramah -->
+  <url>
+    <loc>https://www.masjidalhuda.vercel.app/penceramah</loc>
+    <lastmod>2025-01-30</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <!-- Halaman Takjil -->
+  <url>
+    <loc>https://www.masjidalhuda.vercel.app/takjil</loc>
+    <lastmod>2025-01-30</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+
+  <!-- Halaman Al-Quran Online -->
+  <url>
+    <loc>https://www.masjidalhuda.vercel.app/quran</loc>
+    <lastmod>2025-01-30</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <!-- Halaman Kontak -->
+  <url>
+    <loc>https://www.masjidalhuda.vercel.app/kontak</loc>
+    <lastmod>2025-01-30</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+</urlset>

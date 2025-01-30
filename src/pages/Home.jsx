@@ -1,7 +1,9 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import { Book, Users, Calendar, Images } from "lucide-react";
+import { Book, Users, Calendar, Images, Wallet } from "lucide-react";
 import { usePrayerTimes } from "../hooks/usePrayerTimes";
+import "../styles/animations.css";
+import Events from "../components/Events";
 
 const Home = () => {
   const prayerTimes = usePrayerTimes();
@@ -33,15 +35,19 @@ const Home = () => {
         </div>
       </div>
 
+      {/* Upcoming Events Carousel */}
+      <Events />
+
       {/* Main Content - Cards */}
       <div className="flex items-center flex-1 px-4 py-12 mx-auto max-w-7xl min-h-[calc(100vh-320px)]">
         <div className="w-full max-w-5xl mx-auto">
-          {/* Top Row - 3 Cards */}
-          <div className="grid grid-cols-1 gap-6 mb-8 md:grid-cols-3 md:gap-8">
+          {/* Top Row - 4 Cards */}
+          <div className="grid grid-cols-1 gap-6 mb-8 md:grid-cols-4 md:gap-8">
             {[
               { to: "/tpa-schedule", Icon: Book, title: "Jadwal TPA" },
               { to: "/takjil", Icon: Users, title: "Jadwal Takjil" },
               { to: "/kultum", Icon: Users, title: "Jadwal Kultum" },
+              { to: "/infaq", Icon: Wallet, title: "Infaq Ramadhan" },
             ].map((card, index) => (
               <Link
                 key={card.title}
@@ -82,7 +88,7 @@ const Home = () => {
                 className="block group transform-gpu"
                 style={{
                   animation: `fadeSlideUp 0.6s ease-out ${
-                    (index + 3) * 0.2
+                    (index + 4) * 0.2
                   }s backwards`,
                 }}>
                 <div className="relative h-full p-6 overflow-hidden text-center transition-all duration-500 bg-white rounded-lg shadow-md md:p-8 hover:shadow-2xl hover:bg-emerald-50 group-hover:-translate-y-2">
@@ -104,30 +110,6 @@ const Home = () => {
           </div>
         </div>
       </div>
-
-      <style jsx>{`
-        @keyframes slideIn {
-          from {
-            opacity: 0;
-            transform: translateX(-2rem);
-          }
-          to {
-            opacity: 1;
-            transform: translateX(0);
-          }
-        }
-
-        @keyframes fadeSlideUp {
-          from {
-            opacity: 0;
-            transform: translateY(2rem);
-          }
-          to {
-            opacity: 1;
-            transform: translateY(0);
-          }
-        }
-      `}</style>
     </div>
   );
 };

@@ -9,6 +9,7 @@ import TakjilSchedule from "./pages/TakjilSchedule";
 import KultumSchedule from "./pages/KultumSchedule";
 import QuranOnline from "./pages/QuranOnline";
 import Gallery from "./pages/Gallery";
+import InfaqPage from "./pages/InfaqPage";
 
 const App = () => {
   const [loading, setLoading] = useState(true);
@@ -34,6 +35,7 @@ const App = () => {
           <Route path="/tpa-schedule" element={<TPASchedule />} />
           <Route path="/takjil" element={<TakjilSchedule />} />
           <Route path="/kultum" element={<KultumSchedule />} />
+          <Route path="/infaq" element={<InfaqPage />} />
           <Route path="/quran" element={<QuranOnline />} />
           <Route path="/gallery" element={<Gallery />} />
         </Routes>
