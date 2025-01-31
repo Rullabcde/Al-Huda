@@ -10,7 +10,7 @@ const Home = () => {
 
   return (
     <div className="bg-gray-50">
-      {/* Prayer Times with sliding animation */}
+      {/* Prayer Times */}
       <div className="py-4 text-white bg-emerald-700">
         <div className="px-4 mx-auto max-w-7xl">
           <div className="grid grid-cols-5 gap-4 text-center">
@@ -35,10 +35,10 @@ const Home = () => {
         </div>
       </div>
 
-      {/* Upcoming Events Carousel */}
+      {/* Events Carousel */}
       <Events />
 
-      {/* Main Content - Cards */}
+      {/* Cards */}
       <div className="flex items-center flex-1 px-4 py-12 mx-auto max-w-7xl min-h-[calc(100vh-320px)]">
         <div className="w-full max-w-5xl mx-auto">
           {/* Top Row - 4 Cards */}

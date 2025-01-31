@@ -49,7 +49,6 @@ const Gallery = () => {
         Galeri Masjid
       </h1>
 
-      {/* Grid Gallery */}
       <div className="max-w-6xl mx-auto">
         <div className="grid gap-4 mb-6 sm:grid-cols-2 lg:grid-cols-3">
           {currentImages.map((image, index) => (
@@ -61,7 +60,7 @@ const Gallery = () => {
                   src={image.src}
                   alt={image.alt}
                   className="object-cover w-full h-full"
-                  loading="lazy" // Add lazy loading for better performance
+                  loading="lazy"
                 />
               </div>
               <div className="absolute bottom-0 left-0 right-0 p-2 text-white transition-opacity duration-300 bg-gradient-to-t from-black/60 to-transparent group-hover:from-black/80">
@@ -73,7 +72,7 @@ const Gallery = () => {
           ))}
         </div>
 
-        {/* Pagination - Only show if there's more than one page */}
+        {/* Pagination */}
         {totalPages > 1 && (
           <div className="flex items-center justify-center gap-4 mt-8">
             <button

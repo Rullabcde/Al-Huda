@@ -100,7 +100,7 @@ const TakjilSchedule = () => {
 
             <div className="space-y-4">
               <div className="p-4 rounded-lg bg-emerald-50">
-                <div className="flex items-center gap-2 mb-3">
+                <div className="flex items-center gap-2">
                   <Calendar className="w-5 h-5 text-emerald-700" />
                   <span className="font-medium text-emerald-800">
                     {selectedSchedule.date} - {selectedSchedule.menu}

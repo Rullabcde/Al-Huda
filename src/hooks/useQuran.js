@@ -1,6 +1,5 @@
 import { useState, useEffect } from "react";
 
-// Custom hook for fetching Quran data
 export const useQuran = () => {
   const [surahs, setSurahs] = useState([]);
   const [selectedSurah, setSelectedSurah] = useState(null);
@@ -57,7 +56,7 @@ export const useQuran = () => {
     loading,
     searchQuery,
     setSearchQuery,
-    setSelectedSurah, // Make sure to return setSelectedSurah
+    setSelectedSurah,
     fetchSurahVerses,
     filteredSurahs,
   };

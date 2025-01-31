@@ -17,8 +17,8 @@ const QuranOnline = () => {
 
   // Effect to scroll to top when selectedSurah changes
   useEffect(() => {
-    window.scrollTo(0, 0); // Scroll to the top of the page
-  }, [selectedSurah]); // Only run when selectedSurah changes
+    window.scrollTo(0, 0);
+  }, [selectedSurah]);
 
   const LoadingSpinner = () => (
     <div className="flex items-center justify-center p-4">

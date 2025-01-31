@@ -4,7 +4,8 @@ const ScheduleNotes = () => (
       <strong>Catatan:</strong>
       <ul className="mt-2 ml-4 list-disc">
         <li>Kultum Subuh dimulai setelah sholat Subuh berjamaah</li>
-        <li>Kultum Isya dimulai setelah sholat Tarawih</li>
+        <li>Kultum Isya dimulai setelah sholat Isya berjamaah</li>
+        <li>Kultum Buka Bersama dilaksanakan setiap hari Minggu</li>
         <li>Durasi kultum sekitar 7-10 menit</li>
       </ul>
     </div>

@@ -154,11 +154,11 @@
 // export default TPASchedule;
 
 import React from "react";
-import { Clock, Calendar, Construction } from "lucide-react";
+import { Construction } from "lucide-react";
 
 const TPASchedule = () => {
   return (
-    <div className="min-h-screen p-4 bg-gray-50">
+    <div className="p-4 bg-gray-50">
       <div className="max-w-2xl mx-auto text-center">
         <div className="p-8 bg-white rounded-lg shadow-md">
           <h1 className="mb-6 text-3xl font-bold text-emerald-800">
@@ -177,17 +177,6 @@ const TPASchedule = () => {
             Halaman ini sedang dalam perbaikan untuk memberikan pengalaman yang
             lebih baik. Silakan kembali dalam waktu dekat.
           </p>
-
-          <div className="flex flex-col items-center max-w-md gap-4 p-4 mx-auto mt-6 rounded-lg bg-emerald-50">
-            <div className="flex items-center gap-2 text-emerald-700">
-              <Calendar className="w-5 h-5" />
-              <span>Jadwal akan diperbarui segera</span>
-            </div>
-            <div className="flex items-center gap-2 text-emerald-700">
-              <Clock className="w-5 h-5" />
-              <span>Mohon tunggu pembaruan selanjutnya</span>
-            </div>
-          </div>
         </div>
       </div>
     </div>

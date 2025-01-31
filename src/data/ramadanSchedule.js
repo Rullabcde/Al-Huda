@@ -68,6 +68,7 @@ export const ramadanSchedule = [
       "SUNARTO",
       "TUGIMAN",
       "KUATNO",
+      "MIDI",
     ],
   },
   {
