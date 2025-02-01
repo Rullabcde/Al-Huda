@@ -36,8 +36,6 @@ export const ramadanSchedule = [
       "HERI",
       "DAYAT",
       "JUMAR",
-      "HERU",
-      "WAJI",
       "TRI WAHYUDI",
     ],
   },
@@ -69,6 +67,7 @@ export const ramadanSchedule = [
       "TUGIMAN",
       "KUATNO",
       "MIDI",
+      "BANDIYO",
     ],
   },
   {
@@ -228,6 +227,8 @@ export const ramadanSchedule = [
       "SARTINI",
       "BOIMAN",
       "JAPON",
+      "HERU",
+      "WAJI",
     ],
   },
   {
