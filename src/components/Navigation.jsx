@@ -1,74 +1,82 @@
-import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { Link, useLocation } from "react-router-dom";
 import { Menu, X } from "lucide-react";
 
 const Navigation = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const location = useLocation();
 
-  const handleLinkClick = () => {
+  useEffect(() => {
     setIsOpen(false);
-  };
+  }, [location.pathname]);
 
   return (
     <nav className="relative bg-white shadow-md">
-      <div className="px-4 mx-auto max-w-7xl">
-        <div className="flex items-center justify-between h-16">
-          <Link to="/" className="flex items-center">
-            <img
-              src="/logo.png"
-              alt="Logo Masjid"
-              className="rounded-full w-14 h-14"
+      <div className="flex items-center justify-between h-16 px-4 mx-auto max-w-7xl">
+        {/* Logo */}
+        <Link to="/" className="flex items-center">
+          <img
+            src="/logo.webp"
+            alt="Logo Masjid"
+            className="rounded-full w-14 h-14"
+            width={56}
+            height={56}
+            loading="lazy" // Lazy load the logo
+          />
+          <span className="ml-2 font-bold text-emerald-800">AL-HUDA</span>
+        </Link>
+
+        {/* Hamburger Menu */}
+        <button
+          onClick={() => setIsOpen(!isOpen)}
+          aria-label="Toggle Menu"
+          aria-expanded={isOpen ? "true" : "false"} // Accessibility for screen readers
+          className="relative z-50 p-2 text-gray-600 transition-colors rounded-md hover:text-gray-900 hover:bg-gray-100">
+          {isOpen ? (
+            <X
+              size={24}
+              className="transition-transform duration-300 rotate-180"
             />
-            <span className="font-bold text-emerald-800">AL-HUDA</span>
-          </Link>
-          <button
-            onClick={() => setIsOpen(!isOpen)}
-            className="relative z-50 p-2 text-gray-600 transition-colors rounded-md hover:text-gray-900 hover:bg-gray-100">
-            {isOpen ? (
-              <X size={24} className="animate-spin-once" />
-            ) : (
-              <Menu size={24} className="animate-bounce-slight" />
-            )}
-          </button>
-        </div>
+          ) : (
+            <Menu
+              size={24}
+              className="transition-transform duration-300 scale-105"
+            />
+          )}
+        </button>
       </div>
 
       {/* Mobile Menu */}
       <div
-        className={`fixed top-0 right-0 h-screen w-full md:w-80 bg-white shadow-lg transform transition-transform duration-300 ease-in-out ${
+        className={`fixed top-0 right-0 h-screen w-64 bg-white shadow-lg transform transition-transform duration-300 ease-in-out ${
           isOpen ? "translate-x-0" : "translate-x-full"
         }`}
-        style={{ paddingTop: "104px" }}>
-        <div className="px-6 pt-6 pb-8 space-y-4">
-          <NavLink to="/" onClick={handleLinkClick}>
-            Beranda
-          </NavLink>
-          <NavLink to="/tpa-schedule" onClick={handleLinkClick}>
-            Jadwal TPA
-          </NavLink>
-          <NavLink to="/takjil" onClick={handleLinkClick}>
-            Jadwal Takjil
-          </NavLink>
-          <NavLink to="/kultum" onClick={handleLinkClick}>
-            Jadwal Kultum
-          </NavLink>
-          <NavLink to="/infaq" onClick={handleLinkClick}>
-            Infaq Ramadhan
-          </NavLink>
-          <NavLink to="/quran" onClick={handleLinkClick}>
-            Al-Qur'an Online
-          </NavLink>
-          <NavLink to="/gallery" onClick={handleLinkClick}>
-            Gallery
-          </NavLink>
+        style={{ paddingTop: "80px" }}>
+        <div className="px-6 pt-4 pb-8 space-y-4">
+          {navLinks.map(({ to, label }) => (
+            <NavLink
+              key={to}
+              to={to}
+              onClick={() => setIsOpen(false)} // Close menu on link click
+            >
+              {label}
+            </NavLink>
+          ))}
         </div>
       </div>
-
-      {/* Overlay */}
-      {isOpen && <div onClick={() => setIsOpen(false)} />}
     </nav>
   );
 };
+
+const navLinks = [
+  { to: "/", label: "Beranda" },
+  { to: "/tpa-schedule", label: "Jadwal TPA" },
+  { to: "/takjil", label: "Jadwal Takjil" },
+  { to: "/kultum", label: "Jadwal Kultum" },
+  { to: "/infaq", label: "Infaq Ramadhan" },
+  { to: "/quran", label: "Al-Qur'an Online" },
+  { to: "/gallery", label: "Gallery" },
+];
 
 const NavLink = ({ to, children, onClick }) => (
   <Link

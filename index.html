@@ -15,7 +15,7 @@
     <meta name="author" content="Masjid AL-HUDA" />
     <link rel="canonical" href="https://www.masjidalhuda.vercel.app/" />
 
-    <!-- Open Graph Meta Tags (Untuk Media Sosial) -->
+    <!-- Open Graph Meta Tags (For Social Media) -->
     <meta
       property="og:title"
       content="Masjid AL-HUDA | Jadwal Kajian, TPA, dan Takjil" />
@@ -24,12 +24,16 @@
       content="Lihat jadwal kajian, TPA, penceramah, dan informasi takjil terbaru di Masjid AL-HUDA." />
     <meta
       property="og:image"
-      content="https://www.masjidalhuda.vercel.app/logo.png" />
+      content="https://www.masjidalhuda.vercel.app/logo.webp" />
     <meta property="og:url" content="https://www.masjidalhuda.vercel.app/" />
     <meta property="og:type" content="website" />
 
     <!-- Favicon -->
-    <link rel="shortcut icon" href="/logo.png" type="image/x-icon" />
+    <link rel="shortcut icon" href="/logo.webp" type="image/x-icon" />
+
+    <!-- Preconnect and Prefetch -->
+    <link rel="preconnect" href="https://www.masjidalhuda.vercel.app" />
+    <link rel="dns-prefetch" href="https://www.masjidalhuda.vercel.app" />
 
     <!-- Sitemap & Robots -->
     <link
@@ -38,9 +42,14 @@
       title="Sitemap"
       href="/sitemap.xml" />
     <meta name="robots" content="index, follow" />
+
+    <!-- Load Stylesheets First -->
+    <link rel="stylesheet" href="src/index.css" />
   </head>
   <body>
     <div id="root"></div>
-    <script type="module" src="/src/main.jsx"></script>
+
+    <!-- Defer JavaScript to optimize loading performance -->
+    <script type="module" src="/src/main.jsx" defer></script>
   </body>
 </html>

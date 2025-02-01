@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useRef, useState, useCallback } from "react";
 import { useCarousel } from "../hooks/useCarousel";
 import { eventsData } from "../data/eventsData";
 
@@ -9,70 +9,55 @@ const UpcomingEvents = () => {
 
   // Touch handling
   const [touchStart, setTouchStart] = useState(null);
-  const [touchEnd, setTouchEnd] = useState(null);
   const minSwipeDistance = 50;
 
-  const onTouchStart = (e) => {
-    setTouchEnd(null);
+  const onTouchStart = useCallback((e) => {
     setTouchStart(e.targetTouches[0].clientX);
-  };
+  }, []);
 
-  const onTouchMove = (e) => {
-    setTouchEnd(e.targetTouches[0].clientX);
-  };
-
-  const onTouchEnd = () => {
-    if (!touchStart || !touchEnd) return;
-
-    const distance = touchStart - touchEnd;
-    const isLeftSwipe = distance > minSwipeDistance;
-    const isRightSwipe = distance < -minSwipeDistance;
-
-    if (isLeftSwipe) {
-      nextSlide();
-    } else if (isRightSwipe) {
-      prevSlide();
-    }
-  };
+  const onTouchEnd = useCallback(
+    (e) => {
+      if (!touchStart) return;
+      const distance = touchStart - e.changedTouches[0].clientX;
+      if (distance > minSwipeDistance) nextSlide();
+      if (distance < -minSwipeDistance) prevSlide();
+      setTouchStart(null);
+    },
+    [touchStart, nextSlide, prevSlide]
+  );
 
   // Mouse drag handling
   const [isDragging, setIsDragging] = useState(false);
   const [startX, setStartX] = useState(0);
   const sliderRef = useRef(null);
 
-  const onMouseDown = (e) => {
+  const onMouseDown = useCallback((e) => {
     setIsDragging(true);
     setStartX(e.pageX);
-  };
+  }, []);
 
-  const onMouseMove = (e) => {
-    if (!isDragging) return;
-
-    const currentX = e.pageX;
-    const difference = startX - currentX;
-
-    if (Math.abs(difference) > minSwipeDistance) {
-      if (difference > 0) {
-        nextSlide();
-      } else {
-        prevSlide();
+  const onMouseMove = useCallback(
+    (e) => {
+      if (!isDragging) return;
+      const distance = startX - e.pageX;
+      if (Math.abs(distance) > minSwipeDistance) {
+        if (distance > 0) nextSlide();
+        else prevSlide();
+        setIsDragging(false);
       }
-      setIsDragging(false);
-    }
-  };
+    },
+    [isDragging, startX, nextSlide, prevSlide]
+  );
 
-  const onMouseUp = () => {
-    setIsDragging(false);
-  };
+  const onMouseUp = useCallback(() => setIsDragging(false), []);
 
   return (
     <div className="py-4 bg-emerald-600">
       <div className="px-4 mx-auto max-w-7xl">
         <div
           ref={sliderRef}
-          className="relative overflow-hidden rounded-lg cursor-grab active:cursor-grabbing"
+          className="relative overflow-hidden rounded-lg select-none cursor-grab active:cursor-grabbing"
           onTouchStart={onTouchStart}
-          onTouchMove={onTouchMove}
           onTouchEnd={onTouchEnd}
           onMouseDown={onMouseDown}
           onMouseMove={onMouseMove}
@@ -89,9 +74,12 @@ const UpcomingEvents = () => {
                 <div className="overflow-hidden bg-white rounded-lg shadow-lg">
                   <div className="relative w-1/3 h-1/3 md:h-72">
                     <img
-                      src={event.image}
+                      src={event.image.replace(".jpg", ".webp")}
                       alt={event.title}
-                      className="object-cover w-full h-full" // Perubahan di sini
+                      width="800"
+                      height="450"
+                      className="object-cover w-full h-full"
+                      loading="lazy"
                     />
                     <div className="absolute bottom-0 left-0 right-0 p-4 bg-gradient-to-t from-black/70 to-transparent">
                       <h3 className="text-xl font-bold text-white">
@@ -114,10 +102,11 @@ const UpcomingEvents = () => {
             {eventsData.map((_, index) => (
               <button
                 key={index}
-                className={`h-1.5 rounded-full transition-all ${
+                aria-label={`Go to slide ${index + 1}`} // Improved accessibility
+                className={`h-2 w-1 rounded-full transition-all ${
                   currentIndex === index
-                    ? "w-4 bg-white"
-                    : "w-1.5 bg-emerald-300"
+                    ? "bg-white w-4"
+                    : "bg-emerald-300 w-1.5"
                 }`}
                 onClick={() => goToSlide(index)}
               />

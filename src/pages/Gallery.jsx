@@ -7,17 +7,17 @@ const Gallery = () => {
 
   const images = [
     {
-      src: "/pict1.jpg",
+      src: "/pict1.webp",
       alt: "Foto 1",
       caption: "Pengajian Akbar Ramadhan",
     },
     {
-      src: "/pict2.jpg",
+      src: "/pict2.webp",
       alt: "Foto 2",
       caption: "Buka Puasa Bersama",
     },
     {
-      src: "/pict3.jpg",
+      src: "/pict3.webp",
       alt: "Foto 3",
       caption: "Kegiatan Mengaji Anak-anak TPA",
     },
