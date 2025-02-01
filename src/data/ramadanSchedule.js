@@ -224,7 +224,6 @@ export const ramadanSchedule = [
       "YANURI",
       "SAMBIDI",
       "UKIRJO",
-      "NGAJILAN",
       "TUG",
       "SARTINI",
       "BOIMAN",
