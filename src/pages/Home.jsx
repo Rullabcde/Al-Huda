@@ -11,7 +11,7 @@ const Home = () => {
   return (
     <div className="bg-gray-50">
       {/* Prayer Times */}
-      <div className="py-4 text-white bg-emerald-700">
+      <div className="py-4 bg-emerald-800">
         <div className="px-4 mx-auto max-w-7xl">
           <div className="grid grid-cols-5 gap-4 text-center">
             {[
@@ -23,12 +23,12 @@ const Home = () => {
             ].map((prayer, index) => (
               <div
                 key={prayer.name}
-                className="space-y-1 transition-all duration-300 transform cursor-pointer hover:animate-bounce hover:scale-110"
+                className="space-y-1 transition-all duration-300 transform cursor-pointer hover:scale-105"
                 style={{
                   animation: `slideIn 0.5s ease-out ${index * 0.1}s backwards`,
                 }}>
-                <p className="text-xs">{prayer.name}</p>
-                <p className="font-bold animate-pulse">{prayer.time}</p>
+                <p className="text-sm text-gray-100">{prayer.name}</p>{" "}
+                <p className="font-bold text-white">{prayer.time}</p>{" "}
               </div>
             ))}
           </div>

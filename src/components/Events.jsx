@@ -52,7 +52,7 @@ const UpcomingEvents = () => {
   const onMouseUp = useCallback(() => setIsDragging(false), []);
 
   return (
-    <div className="py-4 bg-emerald-600">
+    <div className="py-4 bg-emerald-700">
       <div className="px-4 mx-auto max-w-7xl">
         <div
           ref={sliderRef}
@@ -97,19 +97,23 @@ const UpcomingEvents = () => {
             ))}
           </div>
 
-          {/* Navigation dots */}
-          <div className="absolute flex justify-center space-x-2 -translate-x-1/2 bottom-4 left-1/2">
+          {/* Navigation dots with improved touch targets */}
+          <div className="absolute bottom-0 flex items-center justify-center -translate-x-1/2 left-1/2">
             {eventsData.map((_, index) => (
               <button
                 key={index}
-                aria-label={`Go to slide ${index + 1}`} // Improved accessibility
-                className={`h-2 w-1 rounded-full transition-all ${
-                  currentIndex === index
-                    ? "bg-white w-4"
-                    : "bg-emerald-300 w-1.5"
-                }`}
-                onClick={() => goToSlide(index)}
-              />
+                aria-label={`Go to slide ${index + 1}`}
+                className="relative p-4 group focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-emerald-700"
+                onClick={() => goToSlide(index)}>
+                <span
+                  className={`block h-2 transition-all ${
+                    currentIndex === index
+                      ? "w-6 bg-white"
+                      : "w-2 bg-emerald-300 group-hover:bg-white/80"
+                  } rounded-full`}
+                />
+                <span className="absolute inset-0" />
+              </button>
             ))}
           </div>
         </div>
