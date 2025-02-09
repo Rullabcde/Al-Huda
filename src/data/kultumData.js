@@ -323,7 +323,7 @@ export const isyaSchedule = [
   {
     date: "25 Ramadan",
     day: "24 Maret 2025",
-    speaker: "Sarjiyo",
+    speaker: "Sumadi",
     topic: "Derajat taqwa setelah Ramadhan",
   },
   {

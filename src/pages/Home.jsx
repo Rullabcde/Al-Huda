@@ -47,33 +47,64 @@ const Home = () => {
               { to: "/tpa-schedule", Icon: Book, title: "Jadwal TPA" },
               { to: "/takjil", Icon: Users, title: "Jadwal Takjil" },
               { to: "/kultum", Icon: Users, title: "Jadwal Kultum" },
-              { to: "/infaq", Icon: Wallet, title: "Infaq Ramadhan" },
-            ].map((card, index) => (
-              <Link
-                key={card.title}
-                to={card.to}
-                className="block group transform-gpu"
-                style={{
-                  animation: `fadeSlideUp 0.6s ease-out ${
-                    index * 0.2
-                  }s backwards`,
-                }}>
-                <div className="relative h-full p-6 overflow-hidden text-center transition-all duration-500 bg-white rounded-lg shadow-md md:p-8 hover:shadow-2xl hover:bg-emerald-50 group-hover:-translate-y-2">
-                  {/* Animated border effect */}
-                  <div className="absolute inset-0 opacity-0 group-hover:opacity-100">
-                    <div className="absolute top-0 left-0 w-full h-1 transition-transform duration-500 origin-left transform scale-x-0 bg-gradient-to-r from-emerald-400 to-emerald-600 group-hover:scale-x-100" />
-                    <div className="absolute top-0 right-0 w-1 h-full transition-transform duration-500 origin-top transform scale-y-0 bg-gradient-to-b from-emerald-600 to-emerald-400 group-hover:scale-y-100" />
-                    <div className="absolute bottom-0 right-0 w-full h-1 transition-transform duration-500 origin-right transform scale-x-0 bg-gradient-to-l from-emerald-400 to-emerald-600 group-hover:scale-x-100" />
-                    <div className="absolute top-0 left-0 w-1 h-full transition-transform duration-500 origin-bottom transform scale-y-0 bg-gradient-to-t from-emerald-600 to-emerald-400 group-hover:scale-y-100" />
-                  </div>
+              {
+                onClick: () => window.open("https://infaqalhuda.vercel.app"),
+                Icon: Wallet,
+                title: "Infaq Ramadhan",
+              },
+            ].map((card, index) =>
+              card.onClick ? (
+                // For Infaq Ramadhan, use div with onClick
+                <div
+                  key={card.title}
+                  onClick={card.onClick}
+                  className="block cursor-pointer group transform-gpu"
+                  style={{
+                    animation: `fadeSlideUp 0.6s ease-out ${
+                      index * 0.2
+                    }s backwards`,
+                  }}>
+                  <div className="relative h-full p-6 overflow-hidden text-center transition-all duration-500 bg-white rounded-lg shadow-md md:p-8 hover:shadow-2xl hover:bg-emerald-50 group-hover:-translate-y-2">
+                    <div className="absolute inset-0 opacity-0 group-hover:opacity-100">
+                      <div className="absolute top-0 left-0 w-full h-1 transition-transform duration-500 origin-left transform scale-x-0 bg-gradient-to-r from-emerald-400 to-emerald-600 group-hover:scale-x-100" />
+                      <div className="absolute top-0 right-0 w-1 h-full transition-transform duration-500 origin-top transform scale-y-0 bg-gradient-to-b from-emerald-600 to-emerald-400 group-hover:scale-y-100" />
+                      <div className="absolute bottom-0 right-0 w-full h-1 transition-transform duration-500 origin-right transform scale-x-0 bg-gradient-to-l from-emerald-400 to-emerald-600 group-hover:scale-x-100" />
+                      <div className="absolute top-0 left-0 w-1 h-full transition-transform duration-500 origin-bottom transform scale-y-0 bg-gradient-to-t from-emerald-600 to-emerald-400 group-hover:scale-y-100" />
+                    </div>
 
-                  <card.Icon className="w-12 h-12 mx-auto mb-4 transition-all duration-500 text-emerald-600 md:w-16 md:h-16 md:mb-6 group-hover:scale-125 group-hover:rotate-12" />
-                  <h3 className="relative z-10 text-lg font-semibold transition-colors duration-300 md:text-xl group-hover:text-emerald-700">
-                    {card.title}
-                  </h3>
+                    <card.Icon className="w-12 h-12 mx-auto mb-4 transition-all duration-500 text-emerald-600 md:w-16 md:h-16 md:mb-6 group-hover:scale-125 group-hover:rotate-12" />
+                    <h3 className="relative z-10 text-lg font-semibold transition-colors duration-300 md:text-xl group-hover:text-emerald-700">
+                      {card.title}
+                    </h3>
+                  </div>
                 </div>
-              </Link>
-            ))}
+              ) : (
+                // For other cards, use Link
+                <Link
+                  key={card.title}
+                  to={card.to}
+                  className="block cursor-pointer group transform-gpu"
+                  style={{
+                    animation: `fadeSlideUp 0.6s ease-out ${
+                      index * 0.2
+                    }s backwards`,
+                  }}>
+                  <div className="relative h-full p-6 overflow-hidden text-center transition-all duration-500 bg-white rounded-lg shadow-md md:p-8 hover:shadow-2xl hover:bg-emerald-50 group-hover:-translate-y-2">
+                    <div className="absolute inset-0 opacity-0 group-hover:opacity-100">
+                      <div className="absolute top-0 left-0 w-full h-1 transition-transform duration-500 origin-left transform scale-x-0 bg-gradient-to-r from-emerald-400 to-emerald-600 group-hover:scale-x-100" />
+                      <div className="absolute top-0 right-0 w-1 h-full transition-transform duration-500 origin-top transform scale-y-0 bg-gradient-to-b from-emerald-600 to-emerald-400 group-hover:scale-y-100" />
+                      <div className="absolute bottom-0 right-0 w-full h-1 transition-transform duration-500 origin-right transform scale-x-0 bg-gradient-to-l from-emerald-400 to-emerald-600 group-hover:scale-x-100" />
+                      <div className="absolute top-0 left-0 w-1 h-full transition-transform duration-500 origin-bottom transform scale-y-0 bg-gradient-to-t from-emerald-600 to-emerald-400 group-hover:scale-y-100" />
+                    </div>
+
+                    <card.Icon className="w-12 h-12 mx-auto mb-4 transition-all duration-500 text-emerald-600 md:w-16 md:h-16 md:mb-6 group-hover:scale-125 group-hover:rotate-12" />
+                    <h3 className="relative z-10 text-lg font-semibold transition-colors duration-300 md:text-xl group-hover:text-emerald-700">
+                      {card.title}
+                    </h3>
+                  </div>
+                </Link>
+              )
+            )}
           </div>
 
           {/* Bottom Row - 2 Cards */}
