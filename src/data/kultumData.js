@@ -50,7 +50,7 @@ export const subuhSchedule = [
   {
     date: "9 Ramadan",
     day: "9 Maret 2025",
-    speaker: "Sudjiyo, S.Pd",
+    speaker: "Hari Tenang",
     topic: "Meraih berkah dari Sedekah",
   },
   {
@@ -80,7 +80,7 @@ export const subuhSchedule = [
   {
     date: "14 Ramadan",
     day: "14 Maret 2025",
-    speaker: "Hari Tenang",
+    speaker: "Sudjiyo, S.Pd",
     topic: "Kisah sahabat Nabi di Bulan Ramadhan",
   },
   {
